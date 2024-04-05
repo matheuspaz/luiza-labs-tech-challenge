@@ -1,0 +1,52 @@
+services:
+    php:
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        container_name: digital-maps-php
+        restart: always
+        image: php-8.2-laravel
+        ports:
+            - "9001:9000"
+        volumes:
+            - .:/app
+        depends_on:
+            - db
+        networks:
+            - digital-maps
+
+    nginx:
+        image: nginx:stable-alpine
+        container_name: digital-maps-nginx
+        restart: always
+        ports:
+            - "8001:80"
+        volumes:
+            - ./:/app
+            - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:rw
+        depends_on:
+            - php
+        networks:
+            - digital-maps
+
+    db:
+        image: mariadb:latest
+        container_name: digital-maps-mariadb
+        restart: always
+        environment:
+            MARIADB_DATABASE: "digitalmaps"
+            MARIADB_ALLOW_EMPTY_PASSWORD: 1
+            MARIADB_ROOT_PASSWORD: "digitalmaps"
+            MARIADB_ROOT_HOST: "%"
+        ports:
+            - "3308:3306"
+        expose:
+            - "3308"
+        volumes:
+            - "./database/data:/var/lib/mysql/data/"
+            - "./database/logs:/var/lib/mysql/logs/"
+        networks:
+            - digital-maps
+
+networks:
+    digital-maps:
