@@ -9,6 +9,9 @@ class InterestPoint extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = null;
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,5 +24,10 @@ class InterestPoint extends Model
         'opened',
         'closed',
         'always_open'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
     ];
 }

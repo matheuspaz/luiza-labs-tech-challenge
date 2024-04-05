@@ -3,24 +3,30 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Repositories\AuthenticationRepository;
-use Error;
-use Illuminate\Support\Facades\Hash;
 
 class AuthenticationService
 {
-    private AuthenticationRepository $authRepository;
-
-    public function __construct(AuthenticationRepository $authRepository)
-    {
-        $this->authRepository = $authRepository;
-    }
-
+    /**
+     * Generate new access token.
+     *
+     * Using user model to generate new token.
+     *
+     * @param User $user Instace of user model.
+     * @return string Plain text token
+     */
     public function generateToken(User $user): string
     {
         return $user->createToken('Digital Maps API Token')->plainTextToken;
     }
 
+    /**
+     * Verify if credentials are valid.
+     *
+     * Using auth helper, verify if user credentials are valid using attemps helper chain.
+     *
+     * @param array credentials [email, password]
+     * @return boolean
+     */
     public function validateCredentials(array $credentials): bool
     {
         return auth()->attempt($credentials);

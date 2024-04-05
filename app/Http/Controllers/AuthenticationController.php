@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class AuthenticationController extends Controller
 {
+    /**
+     * Instance of AuthenticationService
+     */
     private AuthenticationService $authenticationService;
 
     /**
