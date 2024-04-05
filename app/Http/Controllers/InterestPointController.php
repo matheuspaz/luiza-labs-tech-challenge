@@ -112,15 +112,16 @@ class InterestPointController extends Controller
             'alwaysOpen' => 'required_without:closed|required_without:opened|boolean'
         ]);
 
-        $hasRegister = InterestPoint::where('x', $request->get('x'))->where('y', $request->get('y'))->exists();
+        $attributes = $request->only(['name', 'x', 'y', 'opened', 'closed', 'alwaysOpen']);
+
+        $interestPoint = new InterestPoint($attributes);
+        $interestPoint->always_open = $attributes['alwaysOpen'];
+
+        $hasRegister = $this->interestPointService->exists(interestPoint: $interestPoint);
 
         if ($hasRegister) {
             return response()->json(['message' => 'Register already exists!'], 400);
         }
-
-        $attributes = $request->only(['name', 'x', 'y', 'opened', 'closed', 'alwaysOpen']);
-
-        $interestPoint = new InterestPoint($attributes);
 
         $saved = $this->interestPointService->create(interestPoint: $interestPoint);
 
@@ -129,5 +130,34 @@ class InterestPointController extends Controller
         }
 
         return response()->json($interestPoint);
+    }
+
+
+    /**
+     * Controller method to list Interest Points
+     *
+     * This method has validations when filters are applyed, available filters are:
+     * - x: string
+     * - y: string
+     * - hr: time (string)
+     * - mts: integer
+     *
+     * @param Request $request Illuminate Http Request Object
+     * @return JsonResponse
+     */
+    public function list(Request $request): JsonResponse
+    {
+        $request->validate([
+            'x' => 'required_with:y|required_with:hr|required_with:mts|integer|min:0',
+            'y' => 'required_with:x|required_with:hr|required_with:mts|integer|min:0',
+            'hr' => 'required_with:y|required_with:x|required_with:mts|date_format:H:i:s',
+            'mts' => 'required_with:y|required_with:hr|required_with:x|integer|min:0'
+        ]);
+
+        $filters = $request->only(['x', 'y', 'hr', 'mts']);
+
+        $interestPoints = $this->interestPointService->list(filters: $filters);
+
+        return response()->json($interestPoints);
     }
 }
