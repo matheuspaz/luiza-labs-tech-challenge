@@ -58,12 +58,12 @@ class InterestPointService
      * @param array $filters Interest points list.
      * @return Collection of interest points or empty array.
      */
-    public function list(array $filters): Collection
+    public function list(array $filters = []): Collection
     {
         $interestPoints = $this->interestRepository->list(filters: $filters);
 
         return $interestPoints->map(function ($interestPoint) use ($filters) {
-            $point = ['name' => $interestPoint->name, 'status' => InterestPointStatusEnum::Fechado];
+            $point = ['name' => $interestPoint->name, 'status' => InterestPointStatusEnum::Fechado->value];
 
             $hour = isset($filters['hr']) ? $filters['hr'] : now()->format('H:i:s');
             $openedHour = date('H:i:s', strtotime($interestPoint->opened));
@@ -73,7 +73,7 @@ class InterestPointService
             $inRangeOpen = ($openedHour <= $filterHour && $closedHour >= $filterHour);
 
             if ($interestPoint->always_open or $inRangeOpen) {
-                $point['status'] = InterestPointStatusEnum::Aberto;
+                $point['status'] = InterestPointStatusEnum::Aberto->value;
             }
 
             return $point;

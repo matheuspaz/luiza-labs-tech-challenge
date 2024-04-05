@@ -57,7 +57,7 @@ class InterestPointController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response="200",
+     *         response="201",
      *         description="Success",
      *         @OA\JsonContent(
      *             @OA\Property(property="name", type="string", example="Interest Point 1"),
@@ -115,7 +115,10 @@ class InterestPointController extends Controller
         $attributes = $request->only(['name', 'x', 'y', 'opened', 'closed', 'alwaysOpen']);
 
         $interestPoint = new InterestPoint($attributes);
-        $interestPoint->always_open = $attributes['alwaysOpen'];
+
+        if (isset($attributes['alwaysOpen'])) {
+            $interestPoint->always_open = $attributes['alwaysOpen'];
+        }
 
         $hasRegister = $this->interestPointService->exists(interestPoint: $interestPoint);
 
@@ -129,7 +132,7 @@ class InterestPointController extends Controller
             return response()->json(['message' => 'Interest Point not saved. Validate passed data and try again.'], 400);
         }
 
-        return response()->json($interestPoint);
+        return response()->json($interestPoint, 201);
     }
 
 
