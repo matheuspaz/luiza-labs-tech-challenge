@@ -144,6 +144,68 @@ class InterestPointController extends Controller
      *
      * @param Request $request Illuminate Http Request Object
      * @return JsonResponse
+     *
+     * @OA\Get(
+     *     path="/api/interest-points",
+     *     summary="List interest points",
+     *     description="List interest points based on provided filters.",
+     *     tags={"Interest Points"},
+     *     security={{ "bearerAuth":{} }},
+     *     @OA\Parameter(
+     *         name="x",
+     *         in="query",
+     *         description="X coordinate",
+     *         @OA\Schema(type="integer", example=27)
+     *     ),
+     *     @OA\Parameter(
+     *         name="y",
+     *         in="query",
+     *         description="Y coordinate",
+     *         @OA\Schema(type="integer", example=12)
+     *     ),
+     *     @OA\Parameter(
+     *         name="hr",
+     *         in="query",
+     *         description="Hour",
+     *         @OA\Schema(type="string", format="time", example="12:00:00")
+     *     ),
+     *     @OA\Parameter(
+     *         name="mts",
+     *         in="query",
+     *         description="Distance in meters",
+     *         @OA\Schema(type="integer", example=10)
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(
+     *                 type="object",
+     *                 @OA\Property(property="name", type="string", example="Restaurante"),
+     *                 @OA\Property(property="status", type="string", example="Fechado")
+     *             ),
+     *              @OA\Items(
+     *                 type="object",
+     *                 @OA\Property(property="name", type="string", example="Praça Central"),
+     *                 @OA\Property(property="status", type="string", example="Aberto")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="422",
+     *         description="Unprocessable Entity",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *             @OA\Property(property="errors", type="object", example={
+     *                 "x": {"The x field is required."},
+     *                 "y": {"The y field is required."},
+     *                 "hr": {"The hr field is required."},
+     *                 "mts": {"The mts field is required."}
+     *             })
+     *         )
+     *     )
+     * )
      */
     public function list(Request $request): JsonResponse
     {
