@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,10 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Admin DM',
-            'email' => 'admin@digitalmaps.com',
-            'password' => Hash::make('digital-maps')
+        $this->call([
+            UserSeeder::class,
+            InterestPointSeeder::class
         ]);
     }
 }
