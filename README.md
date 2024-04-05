@@ -16,13 +16,13 @@ docker compose up -d
 Após finalizar o build e a criação dos containers, execute o seguinte comando para permitir a execução do post script:
 
 ```bash
-docker compose exec digital-maps-php chmod+x init.sh
+docker exec digital-maps-php chmod+x init.sh
 ```
 
 Executado o comando de permissão, execute o post script com o seguinte comando:
 
 ```bash
-docker compose exec digital-maps-php ./init.sh
+docker exec digital-maps-php ./init.sh
 ```
 
 Esse script executará os seguintes comandos:
@@ -34,7 +34,7 @@ Esse script executará os seguintes comandos:
 Após a execução do post script, execute o seguinte comando para adicionar dados com seeders:
 
 ```bash
-docker compose exec digital-maps-php php artisan db:seed
+docker exec digital-maps-php php artisan db:seed
 ```
 
 Pronto, o sistema está rodando com todas os scripts necessários já executados.
@@ -59,3 +59,9 @@ Utilizado enums e validações de parâmetros no controller.
 ## Testes
 
 Foram criados testes unitários para os serviços e testes de feature.
+
+Para executar os testes, execute o seguinte comando:
+
+```sh
+docker exec digital-maps-php php artisan test
+```
