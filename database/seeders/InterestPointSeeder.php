@@ -14,7 +14,6 @@ class InterestPointSeeder extends Seeder
     {
         $interestPoints = [
             [
-                'id' => 1,
                 'name' => 'Restaurante',
                 'x' => 27,
                 'y' => 12,
@@ -22,7 +21,6 @@ class InterestPointSeeder extends Seeder
                 'closed' => '18:00:00',
             ],
             [
-                'id' => 2,
                 'name' => 'Posto de combustível',
                 'x' => 31,
                 'y' => 18,
@@ -30,7 +28,6 @@ class InterestPointSeeder extends Seeder
                 'closed' => '18:00:00',
             ],
             [
-                'id' => 3,
                 'name' => 'Praça',
                 'x' => 15,
                 'y' => 12,
