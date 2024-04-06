@@ -13,10 +13,16 @@ _obs_: _se você tiver uma versão mais antiga do docker compose, talvez seja ne
 docker compose up -d
 ```
 
+Para verificar se os containers foram buildados e executados com sucesso, rode o seguinte comando para verificar se estão ativos:
+
+```bash
+docker ps --format '{{.Names}}' | grep '^digital-maps'
+```
+
 Após finalizar o build e a criação dos containers, execute o seguinte comando para permitir a execução do post script:
 
 ```bash
-docker exec digital-maps-php chmod+x init.sh
+docker exec digital-maps-php chmod +x init.sh
 ```
 
 Executado o comando de permissão, execute o post script com o seguinte comando:
@@ -62,6 +68,6 @@ Foram criados testes unitários para os serviços e testes de feature.
 
 Para executar os testes, execute o seguinte comando:
 
-```sh
+```bash
 docker exec digital-maps-php php artisan test
 ```
