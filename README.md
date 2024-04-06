@@ -13,7 +13,7 @@ _obs_: _se você tiver uma versão mais antiga do docker compose, talvez seja ne
 docker compose up -d
 ```
 
-Para verificar se os containers foram buildados e executados com sucesso, rode o seguinte comando para verificar se estão ativos:
+Para verificar se os containers foram buildados e executados com sucesso, rode o seguinte comando para verificar se existem 3 containers ativos:
 
 ```bash
 docker ps --format '{{.Names}}' | grep '^digital-maps'
