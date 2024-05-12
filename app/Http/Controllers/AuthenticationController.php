@@ -42,8 +42,8 @@ class AuthenticationController extends Controller
      *         description="User credentials",
      *         @OA\JsonContent(
      *             required={"email", "password"},
-     *             @OA\Property(property="email", type="string", format="email", example="admin@digitalmaps.com"),
-     *             @OA\Property(property="password", type="string", example="digital-maps")
+     *             @OA\Property(property="email", type="string", format="email", example="teste@teste.com"),
+     *             @OA\Property(property="password", type="string", example="teste123@")
      *         )
      *     ),
      *     @OA\Response(

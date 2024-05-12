@@ -16,7 +16,7 @@ class AuthenticationService
      */
     public function generateToken(User $user): string
     {
-        return $user->createToken('Digital Maps API Token')->plainTextToken;
+        return $user->createToken(time())->plainTextToken;
     }
 
     /**

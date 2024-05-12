@@ -3,7 +3,7 @@ services:
         build:
             context: .
             dockerfile: ./docker/php/Dockerfile
-        container_name: digital-maps-php
+        container_name: pp-simplificado-php
         restart: always
         image: php-8.2-laravel
         ports:
@@ -13,11 +13,11 @@ services:
         depends_on:
             - db
         networks:
-            - digital-maps
+            - pp-simplificado
 
     nginx:
         image: nginx:stable-alpine
-        container_name: digital-maps-nginx
+        container_name: pp-simplificado-nginx
         restart: always
         ports:
             - "8001:80"
@@ -27,16 +27,16 @@ services:
         depends_on:
             - php
         networks:
-            - digital-maps
+            - pp-simplificado
 
     db:
         image: mariadb:latest
-        container_name: digital-maps-mariadb
+        container_name: pp-simplificado-mariadb
         restart: always
         environment:
-            MARIADB_DATABASE: "digitalmaps"
+            MARIADB_DATABASE: "ppsimplificado"
             MARIADB_ALLOW_EMPTY_PASSWORD: 1
-            MARIADB_ROOT_PASSWORD: "digitalmaps"
+            MARIADB_ROOT_PASSWORD: "ppsimplificado"
             MARIADB_ROOT_HOST: "%"
         ports:
             - "3308:3306"
@@ -46,7 +46,7 @@ services:
             - "./database/data:/var/lib/mysql/data/"
             - "./database/logs:/var/lib/mysql/logs/"
         networks:
-            - digital-maps
+            - pp-simplificado
 
 networks:
-    digital-maps:
+    pp-simplificado:

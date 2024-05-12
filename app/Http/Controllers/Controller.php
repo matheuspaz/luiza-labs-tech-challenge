@@ -6,9 +6,9 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Info(
- *   title="Digital Maps API by Luiza Labs ",
+ *   title="PP Simplificado",
  *   version="1.0",
- *   description="Available endpoints from Digital Maps Service by Luiza Labs."
+ *   description="Available endpoints from PP Simplificado."
  * )
  *
  * @OA\SecurityScheme(
